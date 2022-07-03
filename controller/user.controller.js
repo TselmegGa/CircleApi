@@ -198,7 +198,6 @@ exports.update = (req, res) => {
   const id = req.params.id;
   const token = req.body.token || req.param('token') || req.headers['x-access-token'];
   const email = db.parseJwt(token).email;
-  
   User.findByPk(id)
       .then(data => {
         if(data.email === email){
