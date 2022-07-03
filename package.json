@@ -1,0 +1,42 @@
+{
+  "name": "afstuderen-light",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "start": "node ./bin/www",
+    "test": "jest"
+  },
+  "dependencies": {
+    "cookie-parser": "~1.4.4",
+    "cors": "^2.8.5",
+    "crypto-js": "^4.1.1",
+    "debug": "~2.6.9",
+    "dotenv": "^10.0.0",
+    "express": "~4.16.1",
+    "http-errors": "~1.6.3",
+    "jade": "~1.11.0",
+    "jsonwebtoken": "^8.5.1",
+    "morgan": "~1.9.1",
+    "mysql2": "^2.3.0",
+    "node-forge": "^1.3.1",
+    "node-object-hash": "^2.3.10",
+    "paranoik": "^0.1.4",
+    "pg": "^8.7.3",
+    "request-hash": "^1.0.5",
+    "sequelize": "^6.6.5",
+    "sequelize-cockroachdb": "^6.0.5"
+  },
+  "devDependencies": {
+    "jest": "^27.3.1",
+    "jest-sonar-reporter": "^2.0.0",
+    "supertest": "^6.1.6"
+  },
+  "jest": {
+    "collectCoverage": true,
+    "testEnvironment": "node",
+    "coveragePathIgnorePatterns": [
+      "/node_modules/"
+    ],
+    "testResultsProcessor": "jest-sonar-reporter"
+  }
+}
