@@ -63,7 +63,6 @@ Post.findAll({ include: User })
 // Find a single Post with an id
 exports.findOne = (req, res) => {
     const id = req.params.id;
-    
     Post.findOne({ where:{id: id}, include: User })
       .then(data => {
         if (data) {
