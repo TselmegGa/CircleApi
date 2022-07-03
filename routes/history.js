@@ -1,9 +1,9 @@
-var express = require('express');
-var router = express.Router();
-var controller = require('../controller/history.controller');
+const express = require('express');
+const router = express.Router();
+const controller = require('../controller/history.controller');
 
 /* GET users listing. */
-router.get('/', function(req, res, next) {
+router.get('/', function(req, res, _next) {
   controller.findAll(req, res);
 });
 

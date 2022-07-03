@@ -2,7 +2,7 @@ const db = require("../model/sequelize");
 const Post = db.post;
 const User = db.user;
 const historyController = require("./history.controller");
-var SHA256 = require("crypto-js/sha256")
+const SHA256 = require("crypto-js/sha256")
 // Create and Save a new Post
 exports.create = (req, res) => {
 
@@ -43,7 +43,7 @@ exports.create = (req, res) => {
 
 
 // Retrieve all Post from the database.
-exports.findAll = (req, res) => {
+exports.findAll = (_req, res) => {
 Post.findAll({ include: User })
   .then(data => {
     res.json({
@@ -52,7 +52,7 @@ Post.findAll({ include: User })
       hash: SHA256(data).toString()
     });
   })
-  .catch(err => {
+  .catch(_err => {
     res.status(500).json({
       success: false,
       error: "Error trying to get all Post" 
@@ -81,7 +81,7 @@ exports.findOne = (req, res) => {
           });
         }
       })
-      .catch(err => {
+      .catch(_err => {
         res.status(500).json({
           success: false,
           error: "Error trying to get Post with id="+ id
@@ -111,7 +111,7 @@ exports.update = (req, res) => {
         });
       }
     })
-    .catch(err => {
+    .catch(_err => {
       res.status(500).json({
         success: false,
         error: "Error trying to update Post" 

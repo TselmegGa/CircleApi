@@ -1,11 +1,11 @@
-var express = require('express');
-var router = express.Router();
-var controller = require('../controller/forum.controller');
+const express = require('express');
+const router = express.Router();
+const controller = require('../controller/forum.controller');
 
-router.post('/', function(req, res, next) {
+router.post('/', function(req, res, _next) {
   controller.create(req, res);
 });
-router.put('/:id', function(req, res, next) {
+router.put('/:id', function(req, res, _next) {
   controller.update(req, res);
 });
 

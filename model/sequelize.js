@@ -2,17 +2,17 @@ const Sequelize = require("sequelize-cockroachdb");
 
 // Option 2: Passing parameters separately (other dialects)
 //sequelize
-var sequelize = new Sequelize("postgresql://tselmeg:00Xmsg0ul85AbrSJDcOK5A@free-tier13.aws-eu-central-1.cockroachlabs.cloud:26257/defaultdb?sslmode=verify-full&options=--cluster%3Dquiet-primate-2166");
+const sequelize = new Sequelize("postgresql://tselmeg:00Xmsg0ul85AbrSJDcOK5A@free-tier13.aws-eu-central-1.cockroachlabs.cloud:26257/defaultdb?sslmode=verify-full&options=--cluster%3Dquiet-primate-2166");
 
 
-var db = {};
+const db = {};
 
 db.Sequelize = Sequelize;
 db.sequelize = sequelize;
 
 db.parseJwt = function(token) {
-  var base64Url = token.split('.')[1];
-  var base64 = base64Url.replace('-', '+').replace('_', '/');
+  let base64Url = token.split('.')[1];
+  let base64 = base64Url.replace('-', '+').replace('_', '/');
   return JSON.parse(Buffer.from(base64, 'base64').toString());
 }
 db.forum = require("./forum")(sequelize, Sequelize);

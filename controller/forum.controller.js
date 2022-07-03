@@ -3,7 +3,7 @@ const Forum = db.forum;
 const User = db.user;
 const Post = db.post;
 const historyController = require("./history.controller");
-var SHA256 = require("crypto-js/sha256")
+const SHA256 = require("crypto-js/sha256")
 // Create and Save a new Forum
 exports.create = (req, res) => {
 
@@ -51,7 +51,7 @@ exports.create = (req, res) => {
 
 
 // Retrieve all Forum from the database.
-exports.findAll = (req, res) => {
+exports.findAll = (_req, res) => {
 Forum.findAll({ include: User })
   .then(data => {
     res.json({
@@ -60,7 +60,7 @@ Forum.findAll({ include: User })
       hash: SHA256(data).toString()
     });
   })
-  .catch(err => {
+  .catch(_err => {
     res.status(500).json({
       success: false,
       error: "Error trying to get all Forum" 
@@ -94,14 +94,14 @@ exports.findOne = (req, res) => {
         } else {
           res.status(404).json({
             success: false,
-            error: "Cannot find Forum with id="+ err
+            error: "Cannot find Forum with id="+ id
           });
         }
       })
-      .catch(err => {
+      .catch(_err => {
         res.status(500).json({
           success: false,
-          error: "Error trying to get Forum with id="+ err
+          error: "Error trying to get Forum with id="+ id
         });
       });
 };
@@ -129,7 +129,7 @@ exports.update = (req, res) => {
         });
       }
     })
-    .catch(err => {
+    .catch(_err => {
       res.status(500).json({
         success: false,
         error: "Error trying to update Forum" 

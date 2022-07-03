@@ -18,7 +18,7 @@ exports.create = (id, action) => {
 
 
 // Retrieve all History from the database.
-exports.findAll = (req, res) => {
+exports.findAll = (_req, res) => {
 History.findAll()
   .then(data => {
     res.json({
@@ -26,7 +26,7 @@ History.findAll()
       model: data 
     });
   })
-  .catch(err => {
+  .catch(_err => {
     res.status(500).json({
       success: false,
       error: "Error trying to get all History" 

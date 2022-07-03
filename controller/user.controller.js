@@ -3,8 +3,8 @@ const User = db.user;
 const historyController = require("./history.controller");
 const keyGen = require("../certificate/key.gen");
 const certificateGen = require("../certificate/cert");
-var jwt = require('jsonwebtoken');
-var SHA256 = require("crypto-js/sha256")
+const jwt = require('jsonwebtoken');
+const SHA256 = require("crypto-js/sha256")
 
 
 // Create and Save a new User
@@ -38,7 +38,7 @@ exports.create = (req, res) => {
 function create(req, res){
         // Create a User
         const keys = keyGen.generatePublicPrivatePairOfKeys()
-        const csr = certificateGen.generateCSR(keys.privateKey, keys.publicKey,req.body.name,req.body.email)
+        const csr = certificateGen.generateCSR(keys.privateKey, keys.publicKey)
         const cert = certificateGen.generateCertificate(csr)
         const user = {
           name: req.body.name,
@@ -78,7 +78,7 @@ function create(req, res){
 }
 
 // Retrieve all User from the database.
-exports.findAll = (req, res) => {
+exports.findAll = (_req, res) => {
   User.findAll({ 
     attributes: ['id','name', 'email', 'certificate']
 })
@@ -90,7 +90,7 @@ exports.findAll = (req, res) => {
         hash: SHA256(data).toString()      
       });
     })
-    .catch(err => {
+    .catch(_err => {
       res.status(500).json({
         success: false,
         error: "Error trying to get all user" 
@@ -133,7 +133,7 @@ exports.findOne = (req, res) => {
               });
             }
           })
-          .catch(err => {
+          .catch(_err => {
             res.status(500).json({
               success: false,
               error: "Error trying to get user"
@@ -146,7 +146,7 @@ exports.findOne = (req, res) => {
           });
         }
       })
-      .catch(err => {
+      .catch(_err => {
         res.status(500).json({
           success: false,
           error: "Error trying to get user with id="+ id
@@ -185,7 +185,7 @@ exports.findOneByEmail = (req, res) => {
         });
       }
     })
-    .catch(err => {
+    .catch(_err => {
       res.status(500).json({
         success: false,
         error: "Error trying to get user while logging"
@@ -241,7 +241,7 @@ function update(req, res){
         });
       }
     })
-    .catch(err => {
+    .catch(_err => {
       res.status(500).json({
         success: false,
         error: "Error trying to update user" 

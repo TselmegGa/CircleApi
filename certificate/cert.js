@@ -3,7 +3,7 @@ module.exports = {
       const forge = require("node-forge");
       const fs = require("fs");
       const pki = forge.pki;
-      var path = require("path");
+      const path = require("path");
 
       const csr = forge.pki.certificationRequestFromPem(csrPem);
   
@@ -39,7 +39,7 @@ module.exports = {
       return pki.certificateToPem(cert);
     },
 
-    generateCSR: (privateKey, publicKey, name, email) => {
+    generateCSR: (privateKey, publicKey) => {
 
         const forge = require("node-forge");
         const pki = forge.pki;
@@ -85,7 +85,7 @@ module.exports = {
         csr.sign(prKey);
 
         // convert certification request to PEM-format
-        const pem = forge.pki.certificationRequestToPem(csr);
-        return pem;
+
+        return forge.pki.certificationRequestToPem(csr);
       },
   };

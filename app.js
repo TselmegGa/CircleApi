@@ -1,21 +1,21 @@
-var createError = require('http-errors');
-var express = require('express');
-var path = require('path');
-var cors = require('cors');
-var cookieParser = require('cookie-parser');
-var logger = require('morgan');
-var dotenv = require('dotenv');
-var jwtAuth = require('./middleware/jwt');
+const createError = require('http-errors');
+const express = require('express');
+const path = require('path');
+const cors = require('cors');
+const cookieParser = require('cookie-parser');
+const logger = require('morgan');
+const dotenv = require('dotenv');
+const jwtAuth = require('./middleware/jwt');
 
-var authRouter = require('./routes/auth');
-var usersRouter = require('./routes/users');
-var postRouter = require('./routes/posts');
-var forumRouter = require('./routes/forum');
-var forumViewRouter = require('./routes/forum.view');
-var historyRouter = require('./routes/history');
-var db = require("./model/sequelize");
+const authRouter = require('./routes/auth');
+const usersRouter = require('./routes/users');
+const postRouter = require('./routes/posts');
+const forumRouter = require('./routes/forum');
+const forumViewRouter = require('./routes/forum.view');
+const historyRouter = require('./routes/history');
+const db = require("./model/sequelize");
 
-var app = express();
+const app = express();
 app.disable("x-powered-by");
 
 // get config vars
@@ -42,7 +42,7 @@ app.use('/view', forumViewRouter);
 app.use('/history', historyRouter);
 
 // catch 404 and forward to error handler
-app.use(function(req, res, next) {
+app.use(function(_req, _res, next) {
   next(createError(404));
 });
 module.exports = app;

@@ -1,5 +1,5 @@
 module.exports = (sequelize, Sequelize) => {
-  const UserHistory = sequelize.define("UserHistory", {
+  return sequelize.define("UserHistory", {
   action: {
     type: Sequelize.STRING,
     allowNull: false
@@ -10,5 +10,4 @@ module.exports = (sequelize, Sequelize) => {
   },
 
 });
-return UserHistory;
  }
