@@ -6,7 +6,6 @@ const db = require('../model/sequelize')
 
 
   describe('Auth tests', () =>{
-    jest.setTimeout(30000)
     let thisDb = db
     let userId = null
     let forumId = null
@@ -123,7 +122,7 @@ it('should get users', async () =>{
   const res = await request(app)
   .get('/users')
   
-  expect(res.body.error).toEqual('Failed to find token.')
+  expect(res.body.error).toEqual('Failed to authenticate token.')
 })
     it('should get a single user', async () =>{
       const res = await request(app)

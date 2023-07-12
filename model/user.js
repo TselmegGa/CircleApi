@@ -24,6 +24,6 @@ module.exports = (sequelize, Sequelize) => {
   certificate: {
     type: Sequelize.TEXT,
     allowNull: false
-  },
+  }
 });
-}
+};

@@ -3,7 +3,7 @@ const Forum = db.forum;
 const User = db.user;
 const Post = db.post;
 const historyController = require("./history.controller");
-const SHA256 = require("crypto-js/sha256")
+const SHA256 = require("crypto-js/sha256");
 // Create and Save a new Forum
 exports.create = (req, res) => {
 
@@ -28,12 +28,12 @@ exports.create = (req, res) => {
       UserId: id,
       name: req.body.name,
       details: req.body.details,
-      date: Date.now(),
+      date: Date.now()
     };
     // Save Forum in the database
     Forum.create(forum)
     .then(data => {
-      historyController.create(id,"Forum Created")
+      historyController.create(id,"Forum Created");
       res.json({
       success: true,
       model: data,

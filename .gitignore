@@ -2,7 +2,7 @@ node_modules
 package-lock.json
 *.log
 *.gz
-
+/nbproject
 
 # Coveralls
 coverage
