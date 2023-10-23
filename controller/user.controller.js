@@ -31,15 +31,15 @@ exports.create = (req, res) => {
         });
         return;
       }
-        create(req, res)
-
-      
+        create(req, res);
 };
+
 function create(req, res){
         // Create a User
-        const keys = keyGen.generatePublicPrivatePairOfKeys()
-        const csr = certificateGen.generateCSR(keys.privateKey, keys.publicKey)
-        const cert = certificateGen.generateCertificate(csr)
+        const keys = keyGen.generatePublicPrivatePairOfKeys();
+        const csr = certificateGen.generateCSR(keys.privateKey, keys.publicKey);
+        const cert = certificateGen.generateCertificate(csr);
+        
         const user = {
           name: req.body.name,
           email: req.body.email,
@@ -48,23 +48,26 @@ function create(req, res){
           pubKey: keys.publicKey,
           certificate: cert
         };
+        
         // Save User in the database
         User.create(user)
           .then(data => {
-            historyController.create(data.id,"User Created")
+            historyController.create(data.id,"User Created");
             res.json({
               success: true,
               model: {
                 id: data.id,
                 name: data.name,
                 email: data.email,
-                certificate: data.certificate
+                certificate: data.certificate,
+                privKey: keys.privateKey
               },
               hash: SHA256({
                 id: data.id,
                 name: data.name,
                 email: data.email,
-                certificate: data.certificate
+                certificate: data.certificate,
+                privKey: keys.privateKey
               }).toString(),
               jwt: jwt.sign({email: data.email, id: data.id}, process.env.TOKEN_SECRET, { expiresIn: '1800s' })
             });
@@ -81,9 +84,7 @@ function create(req, res){
 exports.findAll = (_req, res) => {
   User.findAll({ 
     attributes: ['id','name', 'email', 'certificate']
-})
-    .then(data => {
-      console.log(data)
+}).then(data => {
       res.json({
         success: true,
         model: data,
@@ -109,7 +110,6 @@ exports.findOne = (req, res) => {
             attributes: ['id','name', 'email', 'certificate']
           }).then(data => {
             if (data) {
-            
               res.json({
                 success: true,
                 model: {
@@ -154,12 +154,9 @@ exports.findOne = (req, res) => {
       });
 };
 exports.findOneByEmail = (req, res) => {
-
-  
   User.findOne({ where: { email: req.body.email, password: req.body.password },
     attributes: ['id','name', 'email', 'certificate']
-})
-    .then(data => {
+  }).then(data => {
       if (data) {
         res.json({
           success: true,
