@@ -9,6 +9,6 @@ module.exports = (sequelize, Sequelize) => {
     allowNull: false
   },
 
-});
+},{freezeTableName: true});
  
 }
