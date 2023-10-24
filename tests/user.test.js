@@ -12,8 +12,10 @@ const db = require('../model/sequelize')
     let postId = null
     let token = null
     beforeAll(async () => {
-      await thisDb.sequelize.drop()
-      await thisDb.sequelize.sync()
+        const value = await thisDb.post.destroy({where: {}, force: true})
+                .then(()=> { return thisDb.user_history.destroy({ where: {}, force: true})})
+                .then(()=> { return thisDb.forum.destroy({  where: {}, force: true})})
+                .then(()=> { return thisDb.user.destroy({  where: {}, force: true })});   
       await request(app)
         .post('/auth/register')
         .send({
@@ -48,7 +50,7 @@ const db = require('../model/sequelize')
         }).then(res => {
           postId = res.body.model.id
         });
-        
+        console.log("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
     })
 
     it('should register new user', async () =>{
@@ -165,111 +167,112 @@ it('should create new Forum', async () =>{
     })
     
   expect(res.statusCode).toEqual(400)
-})
-it('should not register new Forum without name', async () =>{
-  const res = await request(app)
-  .post('/forum')
-  .send({
-    "details": "As mentioned in the title, i would like to know if there is someone willing to take me to the Song Fest from Boston.",
-    "token":token
-  })
-  
-expect(res.statusCode).toEqual(400)
-})
-  it('should get Forums', async () =>{
+    })
+    it('should not register new Forum without name', async () =>{
+      const res = await request(app)
+      .post('/forum')
+      .send({
+        "details": "As mentioned in the title, i would like to know if there is someone willing to take me to the Song Fest from Boston.",
+        "token":token
+      })
+
+    expect(res.statusCode).toEqual(400)
+    })
+      it('should get Forums', async () =>{
+        const res = await request(app)
+        .get('/view/forum')
+        .send({
+          "token": token
+        })
+
+      expect(res.statusCode).toEqual(200)
+    })
+    it('should get a Forum', async () =>{
+      const res = await request(app)
+      .get('/view/forum/' + forumId)
+      .send({
+        "token": token
+      })
+
+    expect(res.statusCode).toEqual(200)
+    })  
+
+    it('should update a Forum', async () =>{
+      const res = await request(app)
+      .put('/forum/' + forumId)
+      .send({
+
+        "token": token,
+        "name": "I need a ride to NY for Song Fest from Boston"
+      })
+
+    expect(res.statusCode).toEqual(200)
+    })
+
+    it('should create new Post', async () =>{
+      const res = await request(app)
+      .post('/post')
+      .send({
+        "ForumId": forumId,
+        "token": token,
+        "details": "You can try walking. XD"
+      })
+
+    expect(res.statusCode).toEqual(200)
+    })
+    it('should not register new Post without details', async () =>{
     const res = await request(app)
-    .get('/view/forum')
+    .post('/post')
+    .send({
+      "token": token,
+    })
+
+    expect(res.statusCode).toEqual(400)
+    })
+
+    it('should get Posts', async () =>{
+    const res = await request(app)
+    .get('/view/post')
     .send({
       "token": token
     })
-    
-  expect(res.statusCode).toEqual(200)
-})
-it('should get a Forum', async () =>{
-  const res = await request(app)
-  .get('/view/forum/' + forumId)
-  .send({
+
+    expect(res.statusCode).toEqual(200)
+    })
+    it('should get a Post', async () =>{
+    const res = await request(app)
+    .get('/view/post/' + postId)
+    .send({
+
     "token": token
-  })
-  
-expect(res.statusCode).toEqual(200)
-})  
+    })
 
-it('should update a Forum', async () =>{
-  const res = await request(app)
-  .put('/forum/' + forumId)
-  .send({
-  
+    expect(res.statusCode).toEqual(200)
+    })  
+
+    it('should update a Post', async () =>{
+    const res = await request(app)
+    .put('/post/' + postId)
+    .send({
     "token": token,
-    "name": "I need a ride to NY for Song Fest from Boston"
-  })
-  
-expect(res.statusCode).toEqual(200)
-})
+    "details": "You can try walking to that dumb Fest. XD"
+    })
 
-it('should create new Post', async () =>{
-  const res = await request(app)
-  .post('/post')
-  .send({
-    "ForumId": forumId,
-    "token": token,
-    "details": "You can try walking. XD"
-  })
-  
-expect(res.statusCode).toEqual(200)
-})
-it('should not register new Post without details', async () =>{
-const res = await request(app)
-.post('/post')
-.send({
-  "token": token,
-})
+    expect(res.statusCode).toEqual(200)
+    })
 
-expect(res.statusCode).toEqual(400)
-})
-
-it('should get Posts', async () =>{
-const res = await request(app)
-.get('/view/post')
-.send({
-  "token": token
-})
-
-expect(res.statusCode).toEqual(200)
-})
-it('should get a Post', async () =>{
-const res = await request(app)
-.get('/view/post/' + postId)
-.send({
-  
-"token": token
-})
-
-expect(res.statusCode).toEqual(200)
-})  
-
-it('should update a Post', async () =>{
-const res = await request(app)
-.put('/post/' + postId)
-.send({
-"token": token,
-"details": "You can try walking to that dumb Fest. XD"
-})
-
-expect(res.statusCode).toEqual(200)
-})
-
-it('should get all history', async () =>{
-  const res = await request(app)
-  .get('/history')
-  .send({
-    "token":token
-  })
-expect(res.statusCode).toEqual(200)
-})
-afterAll(async () => {
-  await thisDb.sequelize.close()
-})
+    it('should get all history', async () =>{
+      const res = await request(app)
+      .get('/history')
+      .send({
+        "token":token
+      })
+    expect(res.statusCode).toEqual(200)
+    })
+    
+    afterAll(async () => {
+        await thisDb.sequelize.close()
+    })
 })
 
   

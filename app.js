@@ -25,7 +25,6 @@ dotenv.config();
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
 
-db.sequelize.sync({ alter: true });
 
 app.use(cors());
 app.use(logger('dev'));

@@ -25,5 +25,5 @@ module.exports = (sequelize, Sequelize) => {
     type: Sequelize.TEXT,
     allowNull: false
   }
-});
+},{freezeTableName: true});
 };
