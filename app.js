@@ -6,6 +6,7 @@ const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const dotenv = require('dotenv');
 const jwtAuth = require('./middleware/jwt');
+const encodingAuth = require('./middleware/sha256');
 
 const authRouter = require('./routes/auth');
 const usersRouter = require('./routes/users');
@@ -25,6 +26,7 @@ dotenv.config();
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
 
+db.sequelize.sync({ alter: true });
 
 app.use(cors());
 app.use(logger('dev'));
@@ -34,9 +36,9 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/auth', authRouter);
-app.use('/users', jwtAuth, usersRouter);
-app.use('/post', jwtAuth, postRouter);
-app.use('/forum', jwtAuth, forumRouter);
+app.use('/users', [jwtAuth, encodingAuth], usersRouter);
+app.use('/post', [jwtAuth, encodingAuth], postRouter);
+app.use('/forum', [jwtAuth, encodingAuth], forumRouter);
 app.use('/view', forumViewRouter);
 app.use('/history', historyRouter);
 

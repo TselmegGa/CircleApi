@@ -13,14 +13,6 @@ module.exports = (sequelize, Sequelize) => {
     allowNull: false,
     unique: true
   },
-  privKey: {
-    type: Sequelize.TEXT,
-    allowNull: false
-  },
-  pubKey: {
-    type: Sequelize.TEXT,
-    allowNull: false
-  },
   certificate: {
     type: Sequelize.TEXT,
     allowNull: false

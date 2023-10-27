@@ -4,7 +4,7 @@ const historyController = require("./history.controller");
 const keyGen = require("../certificate/key.gen");
 const certificateGen = require("../certificate/cert");
 const jwt = require('jsonwebtoken');
-const SHA256 = require("crypto-js/sha256")
+const SHA256 = require("crypto-js/sha256");
 
 
 // Create and Save a new User
@@ -44,8 +44,6 @@ function create(req, res){
           name: req.body.name,
           email: req.body.email,
           password: req.body.password,
-          privKey: keys.privateKey,
-          pubKey: keys.publicKey,
           certificate: cert
         };
         
@@ -59,16 +57,14 @@ function create(req, res){
                 id: data.id,
                 name: data.name,
                 email: data.email,
-                certificate: data.certificate,
                 privKey: keys.privateKey
               },
               hash: SHA256({
                 id: data.id,
                 name: data.name,
                 email: data.email,
-                certificate: data.certificate,
                 privKey: keys.privateKey
-              }).toString(),
+              }),
               jwt: jwt.sign({email: data.email, id: data.id}, process.env.TOKEN_SECRET, { expiresIn: '1800s' })
             });
           })
@@ -88,7 +84,7 @@ exports.findAll = (_req, res) => {
       res.json({
         success: true,
         model: data,
-        hash: SHA256(data).toString()      
+        hash: SHA256(data)    
       });
     })
     .catch(_err => {
@@ -123,7 +119,7 @@ exports.findOne = (req, res) => {
                   name: data.name,
                   email: data.email,
                   certificate: data.certificate
-                }).toString()
+                })
               });
               
             } else {
@@ -171,7 +167,7 @@ exports.findOneByEmail = (req, res) => {
             name: data.name,
             email: data.email,
             certificate: data.certificate
-          }).toString(),
+          }),
           jwt: jwt.sign({email: data.email, id: data.id}, process.env.TOKEN_SECRET, { expiresIn: '1800s' })
         });
         
@@ -228,7 +224,7 @@ function update(req, res){
         res.json({
           success: true,
           message: "User was updated successfully.",
-          hash: SHA256("User was updated successfully.").toString()
+          hash: SHA256("User was updated successfully.")
         });
       } else {
         res.status(500).json({
