@@ -11,7 +11,7 @@ module.exports = (sequelize, Sequelize) => {
   date: {
     type: Sequelize.DATE,
     allowNull: false
-  },
+  }
 
 },{freezeTableName: true});
 }

@@ -3,7 +3,7 @@ const Forum = db.forum;
 const User = db.user;
 const Post = db.post;
 const historyController = require("./history.controller");
-const SHA256 = require("crypto-js/sha256");
+const sha256 = require("crypto-js/sha256");
 // Create and Save a new Forum
 exports.create = (req, res) => {
 
@@ -37,7 +37,7 @@ exports.create = (req, res) => {
       res.json({
       success: true,
       model: data,
-      hash: SHA256(data).toString()
+      hash: sha256(data).toString()
       });
     })
     .catch(err => {
@@ -57,7 +57,7 @@ Forum.findAll({ include: User })
     res.json({
       success: true,
       model: data,
-      hash: SHA256(data).toString()
+      hash: sha256(data).toString()
     });
   })
   .catch(_err => {
@@ -87,7 +87,7 @@ exports.findOne = (req, res) => {
               res.json({
                 success: true,
                 model: data,
-                hash: SHA256(data).toString()
+                hash: sha256(data).toString()
           })
           
           
@@ -120,7 +120,7 @@ exports.update = (req, res) => {
         res.json({
           success: true,
           message: "Forum was updated successfully.",
-          hash: SHA256("Forum was updated successfully.").toString()
+          hash: sha256("Forum was updated successfully.").toString()
         });
       } else {
         res.status(500).json({

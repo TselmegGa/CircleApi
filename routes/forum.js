@@ -9,7 +9,4 @@ router.put('/:id', function(req, res, _next) {
   controller.update(req, res);
 });
 
-
-
-
 module.exports = router;
