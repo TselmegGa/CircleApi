@@ -39,7 +39,8 @@ function create(req, res){
         const keys = keyGen.generatePublicPrivatePairOfKeys();
         const csr = certificateGen.generateCSR(keys.privateKey, keys.publicKey);
         const cert = certificateGen.generateCertificate(csr);
-        
+        console.log(cert);
+        console.log(keys.privateKey);
         const user = {
           name: req.body.name,
           email: req.body.email,
@@ -64,8 +65,8 @@ function create(req, res){
                 name: data.name,
                 email: data.email,
                 privKey: keys.privateKey
-              }),
-              jwt: jwt.sign({email: data.email, id: data.id}, process.env.TOKEN_SECRET, { expiresIn: '1800s' })
+              }).toString(),
+              jwt: jwt.sign({email: data.email, id: data.id}, process.env.TOKEN_SECRET, { expiresIn: '18000s' })
             });
           })
           .catch(err => {
@@ -84,7 +85,7 @@ exports.findAll = (_req, res) => {
       res.json({
         success: true,
         model: data,
-        hash: SHA256(data)    
+        hash: SHA256(data).toString()    
       });
     })
     .catch(_err => {
@@ -94,7 +95,11 @@ exports.findAll = (_req, res) => {
       });
     });
 };
-
+exports.findOneCert = (email) => {
+  return User.findOne({ where: { email: email}, 
+    attributes: ['certificate']
+  })
+}
 // Find a single User with an id
 exports.findOne = (req, res) => {
     const id = req.params.id;
@@ -119,7 +124,7 @@ exports.findOne = (req, res) => {
                   name: data.name,
                   email: data.email,
                   certificate: data.certificate
-                })
+                }).toString()
               });
               
             } else {
@@ -167,7 +172,7 @@ exports.findOneByEmail = (req, res) => {
             name: data.name,
             email: data.email,
             certificate: data.certificate
-          }),
+          }).toString(),
           jwt: jwt.sign({email: data.email, id: data.id}, process.env.TOKEN_SECRET, { expiresIn: '1800s' })
         });
         
@@ -224,7 +229,7 @@ function update(req, res){
         res.json({
           success: true,
           message: "User was updated successfully.",
-          hash: SHA256("User was updated successfully.")
+          hash: SHA256("User was updated successfully.").toString()
         });
       } else {
         res.status(500).json({

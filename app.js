@@ -26,7 +26,7 @@ dotenv.config();
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
 
-db.sequelize.sync({ alter: true });
+
 
 app.use(cors());
 app.use(logger('dev'));
@@ -36,7 +36,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/auth', authRouter);
-app.use('/users', [jwtAuth, encodingAuth], usersRouter);
+app.use('/users', [jwtAuth], usersRouter);
 app.use('/post', [jwtAuth, encodingAuth], postRouter);
 app.use('/forum', [jwtAuth, encodingAuth], forumRouter);
 app.use('/view', forumViewRouter);

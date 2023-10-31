@@ -1,10 +1,9 @@
+const forge = require("node-forge");
+const fs = require("fs");
+const pki = forge.pki;
+const path = require("path");
 module.exports = {
     generateCertificate: (csrPem) => {
-      const forge = require("node-forge");
-      const fs = require("fs");
-      const pki = forge.pki;
-      const path = require("path");
-
       const csr = forge.pki.certificationRequestFromPem(csrPem);
   
       const caCertPem = fs.readFileSync(path.resolve(__dirname, "CA/rootCACert.pem"), {
@@ -39,12 +38,7 @@ module.exports = {
       return pki.certificateToPem(cert);
     },
 
-    generateCSR: (privateKey, publicKey) => {
-
-        const forge = require("node-forge");
-        const pki = forge.pki;
-    
-    
+    generateCSR: (privateKey, publicKey) => {    
         const prKey = pki.privateKeyFromPem(privateKey);
         const pubKey = pki.publicKeyFromPem(publicKey);
     

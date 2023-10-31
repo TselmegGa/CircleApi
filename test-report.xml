@@ -1,26 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <testExecutions version="1">
-  <file path="C:\Development\CircleApi\tests\user.test.js">
-    <testCase name="Auth tests should register new user" duration="210"/>
+  <file path="C:\Users\rubbe\OneDrive\Documents\SCHOOL\Sec\server\afstuderen-light-main\tests\user.test.js">
+    <testCase name="Auth tests should register new user" duration="301"/>
     <testCase name="Auth tests should not register new user without name" duration="6"/>
-    <testCase name="Auth tests should not register new user without email" duration="5"/>
-    <testCase name="Auth tests should login as user" duration="25"/>
-    <testCase name="Auth tests should give error with wrong token" duration="11"/>
-    <testCase name="Auth tests should give 404 status with wrong url" duration="15"/>
-    <testCase name="Auth tests should get users" duration="4"/>
-    <testCase name="Auth tests should get a single user" duration="48"/>
-    <testCase name="Auth tests should update a single user" duration="67"/>
-    <testCase name="Auth tests should create new Forum" duration="30"/>
-    <testCase name="Auth tests should not register new Forum without details" duration="4"/>
-    <testCase name="Auth tests should not register new Forum without name" duration="2"/>
-    <testCase name="Auth tests should get Forums" duration="27"/>
-    <testCase name="Auth tests should get a Forum" duration="30"/>
-    <testCase name="Auth tests should update a Forum" duration="29"/>
-    <testCase name="Auth tests should create new Post" duration="28"/>
-    <testCase name="Auth tests should not register new Post without details" duration="3"/>
-    <testCase name="Auth tests should get Posts" duration="23"/>
-    <testCase name="Auth tests should get a Post" duration="24"/>
-    <testCase name="Auth tests should update a Post" duration="42"/>
-    <testCase name="Auth tests should get all history" duration="20"/>
+    <testCase name="Auth tests should not register new user without email" duration="7"/>
+    <testCase name="Auth tests should login as user" duration="33"/>
+    <testCase name="Auth tests should give error with wrong token" duration="15"/>
+    <testCase name="Auth tests should give 404 status with wrong url" duration="25"/>
+    <testCase name="Auth tests should get users" duration="17"/>
+    <testCase name="Auth tests should get a single user" duration="70"/>
+    <testCase name="Auth tests should update a single user" duration="85"/>
+    <testCase name="Auth tests should create new Forum" duration="2089"/>
+    <testCase name="Auth tests should get Forums" duration="46"/>
+    <testCase name="Auth tests should get a Forum" duration="55"/>
+    <testCase name="Auth tests should create new Post" duration="3802"/>
+    <testCase name="Auth tests should get Posts" duration="39"/>
+    <testCase name="Auth tests should get a Post" duration="39"/>
+    <testCase name="Auth tests should update a Post" duration="3365"/>
+    <testCase name="Auth tests should get all history" duration="59"/>
   </file>
 </testExecutions>
